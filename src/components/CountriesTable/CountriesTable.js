@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   KeyboardArrowDownRounded,
   KeyboardArrowUpRounded,
-} from "@material-ui/icons/KeyboardArrowDownRounded";
+} from "@material-ui/icons";
 import styles from "./CountriesTable.module.css";
 import { useState } from "react";
 
@@ -22,7 +22,6 @@ const orderBy = (countries, direction) => {
 };
 
 const SortArrow = ({ direction }) => {
-  console.log(direction);
   if (!direction) {
     return <></>;
   }
@@ -63,12 +62,12 @@ const CountriesTable = ({ countries }) => {
       <div className={styles.heading}>
         <button className={styles.heading_name}>
           <div>Name</div>
-          <SortArrow direction="desc" />
+          <SortArrow direction={direction} />
         </button>
 
-        <button className={styles.heading_population}>
+        <button className={styles.heading_population} onClick={switchDirection}>
           <div>Population</div>
-          <SortArrow direction="asc" /* onClick={switchDirection}  */ />
+          <SortArrow direction={direction} />
         </button>
       </div>
 
