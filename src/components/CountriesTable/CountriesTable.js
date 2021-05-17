@@ -6,17 +6,13 @@ import {
 import styles from "./CountriesTable.module.css";
 import { useState } from "react";
 
-const orderBy = (countries, direction) => {
+const orderBy = (countries, value, direction) => {
   if (direction === "asc") {
-    return [...countries].sort((a, b) =>
-      a.population > b.population ? 1 : -1
-    );
+    return [...countries].sort((a, b) => (a[value] > b[value] ? 1 : -1));
   }
 
   if (direction === "desc") {
-    return [...countries].sort((a, b) =>
-      a.population > b.population ? -1 : 1
-    );
+    return [...countries].sort((a, b) => (a[value] > b[value] ? -1 : 1));
   }
   return countries;
 };
@@ -45,7 +41,7 @@ const CountriesTable = ({ countries }) => {
   const [direction, setDirection] = useState();
   const [value, setValue] = useState();
 
-  const orderedCountries = orderBy(countries, "desc");
+  const orderedCountries = orderBy(countries, value, direction);
 
   const switchDirection = () => {
     if (!direction) {
@@ -57,25 +53,38 @@ const CountriesTable = ({ countries }) => {
     }
   };
 
+  const setValueAndDirection = (value) => {
+    switchDirection();
+    setValue(value);
+  };
+
   return (
     <div>
       <div className={styles.heading}>
-        <button className={styles.heading_name}>
+        <button
+          className={styles.heading_name}
+          onClick={() => setValueAndDirection("name")}
+        >
           <div>Name</div>
           <SortArrow direction={direction} />
         </button>
 
-        <button className={styles.heading_population} onClick={switchDirection}>
+        <button
+          className={styles.heading_population}
+          onClick={() => setValueAndDirection("population")}
+        >
           <div>Population</div>
           <SortArrow direction={direction} />
         </button>
       </div>
 
       {orderedCountries.map((country) => (
-        <div className={styles.row}>
-          <div className={styles.name}>{country.name}</div>
-          <div className={styles.population}>{country.population}</div>
-        </div>
+        <Link href={`/country/${country.alpha3Code}`}>
+          <div className={styles.row}>
+            <div className={styles.name}>{country.name}</div>
+            <div className={styles.population}>{country.population}</div>
+          </div>
+        </Link>
       ))}
     </div>
   );
