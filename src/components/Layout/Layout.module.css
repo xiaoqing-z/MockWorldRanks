@@ -9,8 +9,8 @@
   margin: 0 auto;
 }
 
-.main {
-  /* display: flex; */
+.header {
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 32px;
@@ -24,6 +24,7 @@
 
 .themeSwitcher {
   border: none;
+  outline: none;
   background-color: transparent;
   padding: 0;
 

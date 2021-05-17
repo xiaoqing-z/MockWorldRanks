@@ -5,7 +5,6 @@ import styles from "../styles/Home.module.css";
 import { useState } from "react";
 
 export default function Home({ countries }) {
-  console.log(countries);
   const [keywords, setKeywords] = useState("");
 
   const filteredCountires = countries.filter(
@@ -23,11 +22,15 @@ export default function Home({ countries }) {
 
   return (
     <Layout>
-      <div className={styles.counts}>Found {countries.length} countries</div>
-      <SearchInput
-        placeholder=" Filter by Name, Region or SubRegion"
-        onChange={onInputChange}
-      />
+      <div className={styles.inputContainer}>
+        <div className={styles.counts}>Found {countries.length} countries</div>
+        <div className={styles.input}>
+          <SearchInput
+            placeholder=" Filter by Name, Region or SubRegion"
+            onChange={onInputChange}
+          />
+        </div>
+      </div>
 
       <CountriesTable countries={filteredCountires}></CountriesTable>
     </Layout>
